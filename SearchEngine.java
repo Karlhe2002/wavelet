@@ -7,7 +7,7 @@ class Search implements URLHandler {
 
     public String handleRequest(URI url) {
         if (url.getPath().equals("/")) {
-            return "Current Word List : " + listOfWords.toString();
+            return "Current Word List : " + arrlst.toString();
         } else if (url.getPath().contains("/add")) {
             String[] parameters = url.getQuery().split("=");
             if (parameters[0].equals("s")) {
