@@ -6,26 +6,30 @@ class Search implements URLHandler {
     ArrayList<String> arrlst = new ArrayList<String>();
 
     public String handleRequest(URI url) {
-
-        if (url.getPath().contains("/add")) {
+        if (url.getPath().equals("/")) {
+            return "Current Word List : " + listOfWords.toString();
+        } else if (url.getPath().contains("/add")) {
             String[] parameters = url.getQuery().split("=");
-            if (parameters[0].equals("add")) {
+            if (parameters[0].equals("s")) {
                 arrlst.add(parameters[1]);
+                return String.format("A new string (%s) is Added! There are %d strings in the word list", parameters[1],
+                        arrlst.size());
             }
-            return String.format("A new string (%s) is Added! There are %d strings in the word list", parameters[1],
-                    arrlst.size());
         } else if (url.getPath().contains("/search")) {
             String[] parameters = url.getQuery().split("=");
             if (parameters[0].equals("s")) {
+                ArrayList<String> results = new ArrayList<>();
                 for (String ele : arrlst) {
-                    ArrayList<String> results = new ArrayList<>();
                     if (ele.contains(parameters[1])) {
                         results.add(ele);
+                        System.out.println(ele);
                     }
                 }
+                return "reuslt:" + results.toString();
             }
+        } else {
+            return "404 Not Found!";
         }
-        return "404 Not Found!";
     }
 }
 
