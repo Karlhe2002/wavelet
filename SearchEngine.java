@@ -6,16 +6,21 @@ class Search implements URLHandler {
     ArrayList<String> arrlst = new ArrayList<String>();
 
     public String handleRequest(URI url) {
+
         if (url.getPath().equals("/")) {
-            return "Current Word List : " + arrlst.toString();
-        } else if (url.getPath().contains("/add")) {
+            return "Word List : " + arrlst.toString();
+        }
+
+        else if (url.getPath().contains("/add")) {
             String[] parameters = url.getQuery().split("=");
             if (parameters[0].equals("s")) {
                 arrlst.add(parameters[1]);
                 return String.format("A new string (%s) is Added! There are %d strings in the word list", parameters[1],
                         arrlst.size());
             }
-        } else if (url.getPath().contains("/search")) {
+        }
+
+        else if (url.getPath().contains("/search")) {
             String[] parameters = url.getQuery().split("=");
             if (parameters[0].equals("s")) {
                 ArrayList<String> results = new ArrayList<>();
@@ -27,9 +32,13 @@ class Search implements URLHandler {
                 }
                 return "reuslt:" + results.toString();
             }
-        } else {
+        }
+
+        else {
             return "404 Not Found!";
         }
+
+        return "404 Not Found!";
     }
 }
 
